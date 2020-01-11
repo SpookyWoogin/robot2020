@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
+import frc.robot.commands.TestCommand;
+import frc.robot.subsystems.TestMotor;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -19,8 +22,13 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
   private RobotContainer m_robotContainer;
+
+  public static OI m_oi;
+
+  public static TestMotor m_testMotor = null;
+  public DriverStation driverStation;
+  public static TestCommand testCommand = null;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -31,6 +39,9 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_oi = new OI();
+    m_testMotor = new TestMotor();
+    testCommand = new TestCommand();
   }
 
   /**
@@ -89,6 +100,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    testCommand.start();
   }
 
   /**
